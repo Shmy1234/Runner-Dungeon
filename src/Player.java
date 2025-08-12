@@ -17,14 +17,14 @@ public class Player {
         height = h;
 
 
-        idleRight = new ImageIcon("idle_right.png").getImage();
-        idleLeft = new ImageIcon("idle_left.png").getImage();
+        idleRight = new ImageIcon("../images/idle_right.png").getImage();
+        idleLeft = new ImageIcon("../images/idle_left.png").getImage();
         idle = idleRight;
 
 
         for(int i = 1; i<=4; i++){
-            runLeftPic = new ImageIcon("Knight_runLeft_"+i+".png").getImage();
-            runRightPic = new ImageIcon("Knight_runRight_"+i+".png").getImage();
+            runLeftPic = new ImageIcon("../images/Knight_runLeft_"+i+".png").getImage();
+            runRightPic = new ImageIcon("../images/Knight_runRight_"+i+".png").getImage();
             for(int j = 1; j<=4; j++){
                 runLeft.add(runLeftPic);
                 runRight.add(runRightPic);

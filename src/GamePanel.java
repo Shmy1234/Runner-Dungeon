@@ -30,11 +30,12 @@ class GamePanel extends JPanel implements KeyListener, ActionListener, MouseList
     private Image startPic, restartPic, tutorialPic, menuPic, star, greyStar, heart, darkness; //other smaller images that will be seen in the program
 
     public GamePanel(){ //constructor which helps create the game
+        System.out.println("hi");
         try { //used to add the level background masks to bufferreader images without crashing
-            level1 = ImageIO.read(new File("Level_1_Mask.png"));
-            level2 = ImageIO.read(new File("Level_2_Mask.png"));
-            level3 = ImageIO.read(new File("Level_3_Mask.png"));
-            level4 = ImageIO.read(new File("Level_4_Mask.png"));
+            level1 = ImageIO.read(new File("../images/Level_1_Mask.png"));
+            level2 = ImageIO.read(new File("../images/Level_2_Mask.png"));
+            level3 = ImageIO.read(new File("../images/Level_3_Mask.png"));
+            level4 = ImageIO.read(new File("../images/Level_4_Mask.png"));
         }
         catch (IOException e) {
             System.out.println(e);
@@ -42,18 +43,18 @@ class GamePanel extends JPanel implements KeyListener, ActionListener, MouseList
         keys = new boolean[KeyEvent.KEY_LAST+1]; //initializes boolean array
         setPreferredSize(new Dimension(800, 800)); //setting the hieght and width of the window
         //adding images to variables
-        introBackground = new ImageIcon("Castle.png").getImage();
-        tutorialBackground = new ImageIcon("Instructions.png").getImage();
-        deathBackground = new ImageIcon("death_background.png").getImage();
-        completeBackground = new ImageIcon("complete_background.png").getImage();
-        startPic = new ImageIcon("start.png").getImage();
-        restartPic = new ImageIcon("restart.png").getImage();
-        tutorialPic = new ImageIcon("tutorial.png").getImage();
-        menuPic = new ImageIcon("menu.png").getImage();
-        star = new ImageIcon("star.png").getImage();
-        greyStar = new ImageIcon("grey_star.png").getImage();
-        heart = new ImageIcon("heart.png").getImage();
-        darkness = new ImageIcon("darkness.png").getImage();
+        introBackground = new ImageIcon("../images/Castle.png").getImage();
+        tutorialBackground = new ImageIcon("../images/Instructions.png").getImage();
+        deathBackground = new ImageIcon("../images/death_background.png").getImage();
+        completeBackground = new ImageIcon("../images/complete_background.png").getImage();
+        startPic = new ImageIcon("../images/start.png").getImage();
+        restartPic = new ImageIcon("../images/restart.png").getImage();
+        tutorialPic = new ImageIcon("../images/tutorial.png").getImage();
+        menuPic = new ImageIcon("../images/menu.png").getImage();
+        star = new ImageIcon("../images/star.png").getImage();
+        greyStar = new ImageIcon("../images/grey_star.png").getImage();
+        heart = new ImageIcon("../images/heart.png").getImage();
+        darkness = new ImageIcon("../images/darkness.png").getImage();
         player = new Player(250 ,385,40,35); //intializes player and setting there width and height and position
         button1 = new Button1(300, 450, 200, 60); //intializes button1 and setting there width and height position
         button2 = new Button2(300, 550, 200, 60);//intializes button2 and setting there width and height position

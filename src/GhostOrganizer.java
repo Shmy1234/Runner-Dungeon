@@ -7,8 +7,8 @@ public class GhostOrganizer {
     private Image ghostLeft, ghostRight;
 
     public GhostOrganizer(){
-        ghostLeft = new ImageIcon("ghost_right.png").getImage();
-        ghostRight = new ImageIcon("ghost_left.png").getImage();
+        ghostLeft = new ImageIcon("../images/ghost_right.png").getImage();
+        ghostRight = new ImageIcon("../images/ghost_left.png").getImage();
     }
 
     public void add(Ghost g){

@@ -15,20 +15,20 @@ public class Level {
 
     public Level(int u, int d, int l, int r){
         try {
-            level1 = ImageIO.read(new File("Level_1_Mask.png"));
-            level2 = ImageIO.read(new File("Level_2_Mask.png"));
-            level3 = ImageIO.read(new File("Level_3_Mask.png"));
-            level4 = ImageIO.read(new File("Level_4_Mask.png"));
+            level1 = ImageIO.read(new File("../images/Level_1_Mask.png"));
+            level2 = ImageIO.read(new File("../images/Level_2_Mask.png"));
+            level3 = ImageIO.read(new File("../images/Level_3_Mask.png"));
+            level4 = ImageIO.read(new File("../images/Level_4_Mask.png"));
         }
         catch (IOException e) {
             System.out.println(e);
         }
 
-        level1Pic = new ImageIcon("Level_1_Background.png").getImage();
-        level2Pic = new ImageIcon("Level_2_Background.png").getImage();
-        level3Pic = new ImageIcon("Level_3_Background.png").getImage();
-        level4Pic = new ImageIcon("Level_4_Background.png").getImage();
-        spike = new ImageIcon("spikes.png").getImage();
+        level1Pic = new ImageIcon("../images/Level_1_Background.png").getImage();
+        level2Pic = new ImageIcon("../images/Level_2_Background.png").getImage();
+        level3Pic = new ImageIcon("../images/Level_3_Background.png").getImage();
+        level4Pic = new ImageIcon("../images/Level_4_Background.png").getImage();
+        spike = new ImageIcon("../images/spikes.png").getImage();
 
         x = 0;
         y = 0;

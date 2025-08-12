@@ -7,7 +7,7 @@ public class SpikesOrganizer {
     private Image spikePic;
 
     public SpikesOrganizer(){
-        spikePic = new ImageIcon("spikes.png").getImage();
+        spikePic = new ImageIcon("../images/spikes.png").getImage();
     }
 
     public void add(Spikes s){
