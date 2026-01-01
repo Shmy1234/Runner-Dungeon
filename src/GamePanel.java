@@ -5,33 +5,31 @@ import java.io.*;
 import javax.imageio.*;
 import javax.swing.*;
 
-class GamePanel extends JPanel implements KeyListener, ActionListener, MouseListener{ //helps with actually running the interface of the game and running other classes to actually create a functioning game
-    private boolean []keys; //array used to see what keyboard inputs are being put in
+class GamePanel extends JPanel implements KeyListener, ActionListener, MouseListener{
+    private boolean []keys;
     private Timer timer;
-    private Player player; //used to create the player the user uses
-    private Button1 button1; //the top button of the non-game screens
-    private Button2 button2; //the bottom button of the non-game screens
-    private Level levelBackground; //used to move and draw the background which includes the spikes
+    private Player player;
+    private Button1 button1;
+    private Button2 button2;
+    private Level levelBackground;
 
-    private GhostOrganizer ghostOrganizer; //used to organize and move all the ghosts in a level all at once
-    private Ghost ghost1, ghost2, ghost3, ghost4, ghost5, ghost6, ghost7, ghost8, ghost9, ghost10; //ghosts that will be seen in the game
-    private SpikesOrganizer spikesOrganizer; //used to organize and move all the spikes in a level all at once
-    //spikes that will be seen during the game
-    private Spikes spike1, spike2, spike3, spike4, spike5, spike6, spike7, spike8, spike9; //level 1 and 2 spikes
-    private Spikes spike10, spike11, spike12, spike13, spike14, spike15, spike16; //level 3 spikes
-    private Spikes spike17, spike18, spike19, spike20, spike21, spike22, spike23, spike24, spike25; //level 4 spikes
+    private GhostOrganizer ghostOrganizer;
+    private Ghost ghost1, ghost2, ghost3, ghost4, ghost5, ghost6, ghost7, ghost8, ghost9, ghost10;
+    private SpikesOrganizer spikesOrganizer;
+    private Spikes spike1, spike2, spike3, spike4, spike5, spike6, spike7, spike8, spike9;
+    private Spikes spike10, spike11, spike12, spike13, spike14, spike15, spike16;
+    private Spikes spike17, spike18, spike19, spike20, spike21, spike22, spike23, spike24, spike25;
 
-    //screens which will be seen in the game
     private int intro=0, game=1, tutorial=2, complete=3, death=4;
-    private int level = 1, hearts = 4; //other integers that are used for level transitions and the health bar
-    private int screen = intro; //setting the initial screen to the intro one
-    private BufferedImage level1, level2, level3, level4; //the level backgrounds masks used to create the buildings in the game
-    private Image introBackground, tutorialBackground, deathBackground, completeBackground; //other background images
-    private Image startPic, restartPic, tutorialPic, menuPic, star, greyStar, heart, darkness; //other smaller images that will be seen in the program
+    private int level = 1, hearts = 4;
+    private int screen = intro;
+    private BufferedImage level1, level2, level3, level4;
+    private Image introBackground, tutorialBackground, deathBackground, completeBackground;
+    private Image startPic, restartPic, tutorialPic, menuPic, star, greyStar, heart, darkness;
 
-    public GamePanel(){ //constructor which helps create the game
+    public GamePanel(){
         System.out.println("hi");
-        try { //used to add the level background masks to bufferreader images without crashing
+        try {
             level1 = ImageIO.read(new File("../images/Level_1_Mask.png"));
             level2 = ImageIO.read(new File("../images/Level_2_Mask.png"));
             level3 = ImageIO.read(new File("../images/Level_3_Mask.png"));
@@ -40,9 +38,8 @@ class GamePanel extends JPanel implements KeyListener, ActionListener, MouseList
         catch (IOException e) {
             System.out.println(e);
         }
-        keys = new boolean[KeyEvent.KEY_LAST+1]; //initializes boolean array
-        setPreferredSize(new Dimension(800, 800)); //setting the hieght and width of the window
-        //adding images to variables
+        keys = new boolean[KeyEvent.KEY_LAST+1];
+        setPreferredSize(new Dimension(800, 800));
         introBackground = new ImageIcon("../images/Castle.png").getImage();
         tutorialBackground = new ImageIcon("../images/Instructions.png").getImage();
         deathBackground = new ImageIcon("../images/death_background.png").getImage();
@@ -55,14 +52,13 @@ class GamePanel extends JPanel implements KeyListener, ActionListener, MouseList
         greyStar = new ImageIcon("../images/grey_star.png").getImage();
         heart = new ImageIcon("../images/heart.png").getImage();
         darkness = new ImageIcon("../images/darkness.png").getImage();
-        player = new Player(250 ,385,40,35); //intializes player and setting there width and height and position
-        button1 = new Button1(300, 450, 200, 60); //intializes button1 and setting there width and height position
-        button2 = new Button2(300, 550, 200, 60);//intializes button2 and setting there width and height position
-        levelBackground = new Level(KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT); //used to intialize level variable
-        spikesOrganizer = new SpikesOrganizer(); //used to intialize spikesOrganizer
-        ghostOrganizer = new GhostOrganizer(); //used to intialize ghostOrganizer
+        player = new Player(250 ,385,40,35);
+        button1 = new Button1(300, 450, 200, 60);
+        button2 = new Button2(300, 550, 200, 60);
+        levelBackground = new Level(KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT);
+        spikesOrganizer = new SpikesOrganizer();
+        ghostOrganizer = new GhostOrganizer();
 
-        //creates spikes and deciding what level and position and where they'll move
         spike1 = new Spikes(130, 2, 1, 400, 390, 60, 42);
         spike2 = new Spikes(40, 3, 2, 500, 185, 60, 42);
         spike3 = new Spikes(30, 3, 2, 500, 620, 60, 42);
@@ -90,7 +86,6 @@ class GamePanel extends JPanel implements KeyListener, ActionListener, MouseList
         spike23 = new Spikes(150, 2, 4, 2200, 1380, 100, 45);
         spike24 = new Spikes(150, 2, 4, 2600, 1500, 100, 45);
 
-        //adding the spikes to the level background so when the background moves the spikes can move as well
         spikesOrganizer.add(spike1);
         spikesOrganizer.add(spike2);
         spikesOrganizer.add(spike3);
@@ -115,8 +110,6 @@ class GamePanel extends JPanel implements KeyListener, ActionListener, MouseList
         spikesOrganizer.add(spike22);
         spikesOrganizer.add(spike23);
         spikesOrganizer.add(spike24);
-
-        //creates ghosts and deciding what level and position they'll be in
         ghost1 = new Ghost(2, 1, 1200, 390, 32, 40);
         ghost2 = new Ghost(2, 1, 1800, 600, 32, 40);
         ghost3 = new Ghost(3, 1, 1000, 390, 32, 40);
@@ -127,8 +120,6 @@ class GamePanel extends JPanel implements KeyListener, ActionListener, MouseList
         ghost8 = new Ghost(4, 1, 1640, 250, 32, 40);
         ghost9 = new Ghost(4, 1, 2700, 800, 32, 40);
         ghost10 = new Ghost(4, 1, 2300, 300, 32, 40);
-
-        //adding the ghosts to the level background so when the background moves the spikes can move as well
         ghostOrganizer.add(ghost1);
         ghostOrganizer.add(ghost2);
         ghostOrganizer.add(ghost3);
@@ -145,34 +136,33 @@ class GamePanel extends JPanel implements KeyListener, ActionListener, MouseList
         addKeyListener(this);
         addMouseListener(this);
         timer = new Timer(20, this);
-        timer.start(); //used to start the game so they can buttons and start the game as soon as the game opens
+        timer.start();
     }
 
-    public void death(){ //used to make the player die
+    public void death(){
         hearts-=1;
-        levelBackground.reset(); //resetting the position of the level background as the level restarts when player is hit
+        levelBackground.reset();
         ghostOrganizer.reset();
         spikesOrganizer.reset();
-        if(hearts <= 0){ //if theres no hearts left restart the player from the beginning and transition to the death screen
+        if(hearts <= 0){
             screen = death;
             level = 1;
             levelBackground.levelChange(1);
         }
     }
 
-    public void move(){ //allows us to moves everything else other the player to create ethe illusion of movement
-        levelBackground.move(spikesOrganizer, ghostOrganizer, keys, player.getX(), player.getY(), player.getW(), player.getH()); //used to move the background like the image and spikes
-        spikesOrganizer.move(); //allows the spikes to move even if the player doesn't
-        ghostOrganizer.move(player.getX(), player.getY()); //moves the ghosts if they are close enough to the player
+    public void move(){
+        levelBackground.move(spikesOrganizer, ghostOrganizer, keys, player.getX(), player.getY(), player.getW(), player.getH());
+        spikesOrganizer.move();
+        ghostOrganizer.move(player.getX(), player.getY());
         if(spikesOrganizer.death(level, player.getX(), player.getY(), player.getW(), player.getH())
-                || ghostOrganizer.death(level, player.getX(), player.getY(), player.getW(), player.getH())){ //if player hit a spike or ghost invoke death method
+                || ghostOrganizer.death(level, player.getX(), player.getY(), player.getW(), player.getH())){
             death();
         }
-        if(levelBackground.exit(player.getX(), player.getY())){ //if player hits the exit of the level tranistion to the next part of the game
-            levelBackground.reset();//resetting the level position so the background image is from the start
+        if(levelBackground.exit(player.getX(), player.getY())){
+            levelBackground.reset();
             ghostOrganizer.reset();
             spikesOrganizer.reset();
-            //if statement that allows us to transition from one part of the game to the next
             if(level == 4){
                 screen = complete;
                 level = 1;
@@ -190,26 +180,25 @@ class GamePanel extends JPanel implements KeyListener, ActionListener, MouseList
     }
 
     @Override
-    public void actionPerformed(ActionEvent e){//helps us draw and move and basically allows us to preform our actions in the game
-        if(screen == game){ //if we are in the actually game part the componets in the game can move
+    public void actionPerformed(ActionEvent e){
+        if(screen == game){
             move();
         }
         repaint();
     }
 
     @Override
-    public void keyReleased(KeyEvent k){ //when key is keyreleased mthat key false to let the program know the key is not being pressed
+    public void keyReleased(KeyEvent k){
         int key = k.getKeyCode();
         keys[key] = false;
     }
 
     @Override
-    public void keyPressed(KeyEvent k){ //when key is pressed that key position is true which allows us to use the keys function for other aspects of the game like moving
+    public void keyPressed(KeyEvent k){
         int key = k.getKeyCode();
         keys[key] = true;
     }
 
-    //other mouse and key methods that we don't change
     @Override
     public void keyTyped(KeyEvent k){}
     @Override
@@ -221,9 +210,9 @@ class GamePanel extends JPanel implements KeyListener, ActionListener, MouseList
     @Override
     public void	mouseReleased(MouseEvent e){}
     @Override
-    public void	mousePressed(MouseEvent e){ //used to create the button functionality as we can now click on buttons on the screen
+    public void	mousePressed(MouseEvent e){
         if (e.getX() > button1.getX() && e.getX() < button1.getX() + button1.getW()
-                && e.getY() > button1.getY() && e.getY() < button1.getY() + button1.getH()) { //if top bottom is pressed and in the right screen are game or restart
+                && e.getY() > button1.getY() && e.getY() < button1.getY() + button1.getH()) {
             if (screen == intro || screen == death || screen == complete) {
                 screen = game;
                 level = 1;
@@ -231,7 +220,7 @@ class GamePanel extends JPanel implements KeyListener, ActionListener, MouseList
             }
         }
         if (e.getX() > button2.getX() && e.getX() < button2.getX() + button2.getW()
-                && e.getY() > button2.getY() && e.getY() < button2.getY() + button2.getH()) { //if top bottom is pressed and in the right screen go back to menu or tutorial
+                && e.getY() > button2.getY() && e.getY() < button2.getY() + button2.getH()) {
             if(screen == intro){
                 screen = tutorial;
             }
@@ -244,8 +233,8 @@ class GamePanel extends JPanel implements KeyListener, ActionListener, MouseList
     }
 
     @Override
-    public void paint(Graphics g){ //used to draw the componets of what screen we are on
-        if(screen == intro){ //used to draw the componets in our screen like text and images
+    public void paint(Graphics g){
+        if(screen == intro){
             g.drawImage(introBackground,0,0,800, 800, null);
             g.setColor(Color.BLACK);
             g.setFont(new Font("Ariel", Font.BOLD, 170));
@@ -255,15 +244,14 @@ class GamePanel extends JPanel implements KeyListener, ActionListener, MouseList
             button1.draw(g, startPic);
             button2.draw(g, tutorialPic);
         }
-        else if(screen == game){ //used to draw the componets when we are playing the game like text and images
+        else if(screen == game){
             g.setColor(Color.BLACK);
             g.fillRect(0,0,800,800);
             levelBackground.draw(g);
             spikesOrganizer.draw(g, level);
             ghostOrganizer.draw(g, level);
             player.draw(g, keys, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT);
-            g.drawImage(darkness,0,0,800, 800, null); //used to get darkening affect
-            //if statement which allows us to draw a heart for each heart we still have
+            g.drawImage(darkness,0,0,800, 800, null);
             if(hearts > 0){
                 g.drawImage(heart,40,30,100, 100, null);
             }
@@ -277,7 +265,7 @@ class GamePanel extends JPanel implements KeyListener, ActionListener, MouseList
                 g.drawImage(heart,460,30,100, 100, null);
             }
         }
-        else if(screen == tutorial){ //used to draw the componets of our sort of basic menu screen that shows the basic goal of the game of getting to the end and avoiding spikes
+        else if(screen == tutorial){
             g.drawImage(tutorialBackground,0,0,800, 800, null);
             g.setColor(Color.BLACK);
             g.setFont(new Font("Ariel", Font.BOLD, 120));
@@ -286,9 +274,8 @@ class GamePanel extends JPanel implements KeyListener, ActionListener, MouseList
             g.drawString("Tutorial",208,190);
             button2.draw(g, menuPic);
         }
-        else if(screen == complete){ //used to draw the componets of our complete screen like text and images
+        else if(screen == complete){
             g.drawImage(completeBackground,0,0,800, 800, null);
-            //used to draw the stars as it sees how many hearts you have and the more hearts you lost the more grey stars you get out of 3
             if(hearts == 4){
                 g.drawImage(star,50,50,200, 200, null);
                 g.drawImage(star,300,50,200, 200, null);
@@ -317,7 +304,7 @@ class GamePanel extends JPanel implements KeyListener, ActionListener, MouseList
             button1.draw(g, restartPic);
             button2.draw(g, menuPic);
         }
-        else if(screen == death){ //used to draw the componets of our death screen like text and images
+        else if(screen == death){
             g.drawImage(deathBackground,0,0,800, 800, null);
             g.setColor(Color.BLACK);
             g.setFont(new Font("Ariel", Font.BOLD, 130));
